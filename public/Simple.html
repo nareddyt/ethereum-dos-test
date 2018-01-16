@@ -10,10 +10,21 @@
         <button onclick="myFunction()">Click me</button>
 
         <p id="demo"></p>
+        
+        <script type="text/javascript">
 
-        <script>
             function myFunction() {
-                document.getElementById("demo").innerHTML = "Hello World";
+
+                if (typeof web3 === 'undefined') {
+                    console.log('No web3? You should consider trying MetaMask!')
+                    document.getElementById("demo").innerHTML = "No web3 dectected :(";
+                    return;
+                }
+
+                // Found metamask!
+                document.getElementById("demo").innerHTML = "Found web3!";
+                web3js = new Web3(web3.currentProvider);
+
             }
         </script>
 
