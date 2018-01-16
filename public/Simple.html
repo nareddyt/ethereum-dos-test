@@ -33,11 +33,15 @@
 
                 document.getElementById("demo").innerHTML += "Starting calls. Make sure to check your node's cpu usage :)";
 
-                // Run every 1 second
+                // Run at a set interval forever
                 window.setInterval(function() {
+
+                    // Make the call. Uses no gas
                     dos.loop1.call(function(error, result) {
+                        // Metamask forces us to define a callback, just do nothing :/
+                        // console.log('Result:', result.toNumber());
                     });
-                }, 10)
+                }, 5);
 
             }
         </script>
