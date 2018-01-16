@@ -22,8 +22,15 @@
                 }
 
                 // Found metamask!
-                document.getElementById("demo").innerHTML = "Found web3!";
+                document.getElementById("demo").innerHTML = "Found web3! ";
                 web3js = new Web3(web3.currentProvider);
+
+                document.getElementById("demo").innerHTML += "Starting calls. ";
+
+                for (var i = 0; i < 100; i++) {
+                    var temp = i + " ";
+                    document.getElementById("demo").innerHTML += temp;
+                }
 
             }
         </script>
