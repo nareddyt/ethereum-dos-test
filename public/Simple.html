@@ -27,10 +27,13 @@
 
                 document.getElementById("demo").innerHTML += "Starting calls. ";
 
-                for (var i = 0; i < 100; i++) {
-                    var temp = i + " ";
-                    document.getElementById("demo").innerHTML += temp;
-                }
+                var abi = [{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"greet","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_greeting","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
+                var greeter = web3.eth.contract(abi).at("0x5d5ae9cd88c098ee2bcf77efb5d2cca1c5ea1304");
+
+                greeter.greet.call(function(error, result) {
+                    console.log('Error:', error);
+                    console.log(result);
+                });
 
             }
         </script>
